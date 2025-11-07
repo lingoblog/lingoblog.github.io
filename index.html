@@ -9,11 +9,17 @@ body {
   color: #000000;
   font-family: "MS PGothic", sans-serif;
   margin: 20px;
+  background-image: radial-gradient(#eeeecc 1px, transparent 1px),
+                    radial-gradient(#eeeecc 1px, transparent 1px);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px;
 }
+
 h1 {
   font-size: 28px;
   border-bottom: 2px solid #000000;
 }
+
 a {
   color: blue;
   text-decoration: none;
@@ -21,8 +27,19 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
 hr {
   margin: 20px 0;
+}
+
+.article {
+  border: 1px solid #aaa;
+  background-color: #ffffee;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.article h3 {
+  margin-top: 0;
 }
 </style>
 </head>
@@ -44,6 +61,20 @@ hr {
   <li><a href="#">大学生</a></li>
   <li><a href="#">近畿地方の大学</a></li>
 </ul>
+
+<hr>
+
+<h2>■ブログ</h2>
+
+<div class="article">
+  <h3>2025年11月7日：初投稿</h3>
+  <p>GitHub Pagesを使って初めて自分のサイトを作成。思ったより簡単！これから少しずつ整えていく予定。</p>
+</div>
+
+<div class="article">
+  <h3>2025年11月6日：Duolingo記録</h3>
+  <p>今日も英語のリスニングを中心に勉強。発音問題で連続正解できた。</p>
+</div>
 
 <hr>
 
