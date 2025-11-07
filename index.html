@@ -1,91 +1,159 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>lingoのホームページ</title>
 <style>
-body {
-  background-color: #ADD8E6;
-  color: #000000;
-  font-family: "MS PGothic", sans-serif;
-  margin: 20px;
-  background-image: radial-gradient(#eeeecc 1px, transparent 1px),
-                    radial-gradient(#eeeecc 1px, transparent 1px);
-  background-position: 0 0, 25px 25px;
-  background-size: 50px 50px;
-}
+  :root {
+    --ink: #000;
+    --bg: #add8e6;
+    --panel: #ffffee;
+    --accent: #1e90ff;
+    --muted: #aaa;
+  }
 
-h1 {
-  font-size: 28px;
-  border-bottom: 2px solid #000000;
-}
+  /* page */
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background-color: var(--bg);
+    font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    line-height: 1.6;
+    background-image:
+      radial-gradient(#eeeecc 1px, transparent 1px),
+      radial-gradient(#eeeecc 1px, transparent 1px);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+    display: flex;
+    flex-direction: column;
+  }
 
-a {
-  color: blue;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
+  /* layout */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 20px; width: 100%; }
+  header h1 { font-size: 28px; margin: 0 0 4px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+  header small { color: #333; }
 
-hr {
-  margin: 20px 0;
-}
+  /* tabs */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0 20px;
+    flex-wrap: wrap;
+  }
+  .tab-link {
+    appearance: none;
+    border: 1px solid var(--muted);
+    background: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .tab-link[aria-current="page"], .tab-link.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
 
-.article {
-  border: 1px solid #aaa;
-  background-color: #ffffee;
-  padding: 10px;
-  margin-bottom: 15px;
-}
-.article h3 {
-  margin-top: 0;
-}
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  hr { margin: 20px 0; }
+  a { color: blue; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .article { border: 1px solid var(--muted); background-color: var(--panel); padding: 12px; border-radius: 6px; margin: 12px 0; }
+  .article h3 { margin: 0 0 6px; }
+
+  footer { margin-top: auto; padding: 24px 20px; text-align: center; color: #333; }
 </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <h1>lingoのホームページ</h1>
+      <small>最終更新日：2025年11月7日</small>
+    </header>
 
-<h1>lingoのホームページ</h1>
-<p>最終更新日：2025年11月7日</p>
+    <!-- Tab Buttons -->
+    <nav class="tabs" aria-label="コンテンツのタブ">
+      <a class="tab-link" href="#home" data-target="home">ホーム</a>
+      <a class="tab-link" href="#about" data-target="about">自己紹介</a>
+      <a class="tab-link" href="#blog" data-target="blog">ブログ</a>
+    </nav>
 
-<hr>
+    <!-- HOME -->
+    <section id="home" class="tab-content" aria-labelledby="tab-home">
+      <h2>ようこそ</h2>
+      <p>ここは個人サイトです。ゆるく更新していきます。</p>
+      <hr />
+      <h2>リンク</h2>
+      <ul>
+        <li><a href="https://www.duolingo.com/learn" target="_blank" rel="noopener noreferrer">Duolingo</a></li>
+      </ul>
+    </section>
 
-<h2>■プロフィール</h2>
-<p>陰キャ界の陽キャ</p>
-<p>趣味：筋トレ・Duolingo</p>
+    <!-- ABOUT -->
+    <section id="about" class="tab-content" aria-labelledby="tab-about">
+      <h2>■プロフィール</h2>
+      <p>陰キャ界の陽キャ</p>
+      <p>趣味：筋トレ・Duolingo</p>
+      <hr />
+      <h2>■活動紹介</h2>
+      <p>ほのぼの暮らしてます</p>
+    </section>
 
-<hr>
+    <!-- BLOG -->
+    <section id="blog" class="tab-content" aria-labelledby="tab-blog">
+      <h2>■ブログ</h2>
+      <div class="article">
+        <h3>2025年11月7日：初投稿</h3>
+        <p>備忘録として，ブログを書いていきます．</p>
+        <p>今日はしなければならないことがたくさんあるのに，違うことして現実逃避をしてる時間がながかったですね</p>
+      </div>
 
-<h2>■活動紹介</h2>
-<ul>
-<p>ほのぼの暮らしてます</p>
-</ul>
+      <div class="article">
+        <h3>開設の挨拶</h3>
+        <p>ブログ・日記を書くためのホームページを制作しました</p>
+      </div>
+    </section>
+  </div>
 
-<hr>
+  <footer>© 2025 lingo</footer>
 
-<h2>■ブログ</h2>
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll('.tab-link'));
+      const sections = Array.from(document.querySelectorAll('.tab-content'));
 
-<div class="article">
-  <h3>2025年11月7日：初投稿</h3>
-  <p>備忘録として，ブログを書いていきます．</p>
-  <p>今日はしなければならないことがたくさんあるのに，違うことして現実逃避をしてる時間がながかったですね</p>
-</div>
+      function showTab(name) {
+        const target = name || 'home';
+        sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
+        links.forEach(a => {
+          const active = a.dataset.target === target;
+          a.classList.toggle('active', active);
+          a.setAttribute('aria-current', active ? 'page' : 'false');
+        });
+      }
 
-<div class="article">
-  <h3>開設の挨拶</h3>
-  <p>ブログ・日記を書くためのホームページを制作しました</p>
-</div>
+      // 初期表示（URLの#hashに対応）
+      const initial = (location.hash || '#home').slice(1);
+      showTab(initial);
 
-<hr>
+      // ハッシュ変更でも切替
+      window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
-<h2>■リンク</h2>
-<ul>
-  <li><a href="https://www.duolingo.com/learn">Duolingo</a></li>
-</ul>
-
-<hr>
-
-<p>© 2025 lingo</p>
-
+      // クリック時にハッシュを更新（標準動作だが、SPAsでも確実に）
+      links.forEach(a => a.addEventListener('click', (e) => {
+        const name = a.dataset.target;
+        if (!name) return;
+        // 既に同じタブのときも視覚反応させる
+        showTab(name);
+      }));
+    })();
+  </script>
 </body>
 </html>
