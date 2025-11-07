@@ -13,7 +13,6 @@
     --muted: #aaa;
   }
 
-  /* page */
   html, body { height: 100%; }
   body {
     margin: 0;
@@ -30,12 +29,10 @@
     flex-direction: column;
   }
 
-  /* layout */
   .wrap { max-width: 900px; margin: 0 auto; padding: 20px; width: 100%; }
   header h1 { font-size: 28px; margin: 0 0 4px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
   header small { color: #333; }
 
-  /* tabs */
   .tabs {
     display: flex;
     gap: 8px;
@@ -83,6 +80,7 @@
       <a class="tab-link" href="#home" data-target="home">ホーム</a>
       <a class="tab-link" href="#about" data-target="about">自己紹介</a>
       <a class="tab-link" href="#blog" data-target="blog">ブログ</a>
+      <a class="tab-link" href="#trivia" data-target="trivia">雑学</a>
     </nav>
 
     <!-- HOME -->
@@ -107,7 +105,7 @@
       <p>生まれは滋賀県，住居は大阪</p>
       <p>なんとなく海外で働いてみたいので，英語の勉強がんばります</p>
       <p>めざせTOEIC800点です．次回の受験で730取りたいですね</p>
-      <P>海外勤務，なんとなくかっこいい．ただそれだけの動機です</P>
+      <p>海外勤務，なんとなくかっこいい．ただそれだけの動機です</p>
       <hr />
       <h2>■活動紹介</h2>
       <p>ほのぼの暮らしてます</p>
@@ -116,7 +114,7 @@
     <!-- BLOG -->
     <section id="blog" class="tab-content" aria-labelledby="tab-blog">
       <h2>■ブログ</h2>
-       <div class="article">
+      <div class="article">
         <h3>2025年11月8日：もつ鍋</h3>
         <p>最近もつ鍋作りにハマっています</p>
         <p>もつ鍋作りといっても，出来合いのつゆに切ったやさいともつを入れるだけなんですけどね．</p>
@@ -133,12 +131,26 @@
         <p>備忘録として，ブログを書いていきます．</p>
         <p>今日はしなければならないことがたくさんあるのに，違うことして現実逃避をしてる時間がながかったですね</p>
       </div>
-
       <div class="article">
         <h3>開設の挨拶</h3>
         <p>ブログ・日記を書くためのホームページを制作しました</p>
       </div>
     </section>
+
+    <!-- TRIVIA -->
+    <section id="trivia" class="tab-content" aria-labelledby="tab-trivia">
+      <h2>■雑学</h2>
+      <div class="article">
+        <h3>ホルモンの語源</h3>
+        <p>大阪弁で「ほる（捨てる）もん（もの）」から来たと言われています。</p>
+        <p>つまり、昔は食べずに捨てられていた部分だったというわけですね。</p>
+      </div>
+      <div class="article">
+        <h3>カフェインの効果時間</h3>
+        <p>カフェインの半減期はおよそ4〜6時間とされています。夜遅くのコーヒーは睡眠の質に影響を与えることがあります。</p>
+      </div>
+    </section>
+
   </div>
 
   <footer>© 2025 lingo</footer>
@@ -158,18 +170,14 @@
         });
       }
 
-      // 初期表示（URLの#hashに対応）
       const initial = (location.hash || '#home').slice(1);
       showTab(initial);
 
-      // ハッシュ変更でも切替
       window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
-      // クリック時にハッシュを更新（標準動作だが、SPAsでも確実に）
       links.forEach(a => a.addEventListener('click', (e) => {
         const name = a.dataset.target;
         if (!name) return;
-        // 既に同じタブのときも視覚反応させる
         showTab(name);
       }));
     })();
