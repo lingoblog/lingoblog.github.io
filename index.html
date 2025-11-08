@@ -129,6 +129,8 @@
       </div>
 
 <h2>現在時刻</h2>
+
+<!-- 丸い時計をここに配置 -->
 <div class="clock">
   <div class="hand hour"></div>
   <div class="hand minute"></div>
@@ -136,6 +138,7 @@
   <div class="center-dot"></div>
 </div>
 
+<!-- 時計のスタイル -->
 <style>
 .clock {
   position: relative;
@@ -143,7 +146,7 @@
   height: 200px;
   border: 8px solid #333;
   border-radius: 50%;
-  margin: 20px auto;
+  margin: 20px auto; /* ← 中央寄せ */
   background: white radial-gradient(circle at center, #fff 60%, #f2f2f2);
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }
@@ -190,6 +193,7 @@
 }
 </style>
 
+<!-- 時計を動かすスクリプト -->
 <script>
 function updateClock() {
   const now = new Date();
@@ -197,9 +201,9 @@ function updateClock() {
   const minute = now.getMinutes();
   const hour = now.getHours();
 
-  const secondDeg = second * 6;                 // 360° / 60
-  const minuteDeg = minute * 6 + second * 0.1;  // 1分ごとに6°
-  const hourDeg = (hour % 12) * 30 + minute * 0.5; // 1時間ごとに30°
+  const secondDeg = second * 6;
+  const minuteDeg = minute * 6 + second * 0.1;
+  const hourDeg = (hour % 12) * 30 + minute * 0.5;
 
   document.querySelector('.hand.second').style.transform = `rotate(${secondDeg}deg)`;
   document.querySelector('.hand.minute').style.transform = `rotate(${minuteDeg}deg)`;
@@ -209,7 +213,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 </script>
-
 
     </section>
 
