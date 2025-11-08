@@ -131,19 +131,21 @@
       <h2>現在時刻</h2>
       <p id="clock"></p>
 
-      <py-script>
-from pyscript import document
+<!-- 置き換え：時計のPyScript -->
+<py-script>
 from datetime import datetime
+from pyscript import document
 import asyncio
 
-async def update():
+async def tick():
     while True:
-        now = datetime.now().strftime("%H:%M:%S")
-        document.querySelector("#clock").innerText = now
+        document.querySelector("#clock").innerText = datetime.now().strftime("%H:%M:%S")
         await asyncio.sleep(1)
 
-await update()
-      </py-script>
+# トップレベルawaitは使わず、タスクとして起動
+asyncio.create_task(tick())
+</py-script>
+
     </section>
 
     <!-- ABOUT -->
