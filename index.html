@@ -1,105 +1,98 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>lingoのホームページ</title>
-<style>
-  :root {
-    --ink: #000;
-    --bg: #add8e6;
-    --panel: #ffffee;
-    --accent: #1e90ff;
-    --muted: #aaa;
-  }
-
-  html, body { height: 100%; }
-  body {
-    margin: 0;
-    color: var(--ink);
-    background-color: var(--bg);
-    font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-    line-height: 1.6;
-    background-image:
-      radial-gradient(#eeeecc 1px, transparent 1px),
-      radial-gradient(#eeeecc 1px, transparent 1px);
-    background-position: 0 0, 25px 25px;
-    background-size: 50px 50px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .wrap { max-width: 900px; margin: 0 auto; padding: 20px; width: 100%; }
-  header h1 { font-size: 28px; margin: 0 0 4px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
-  header small { color: #333; }
-
-  .tabs {
-    display: flex;
-    gap: 8px;
-    margin: 16px 0 20px;
-    flex-wrap: wrap;
-  }
-  .tab-link {
-    appearance: none;
-    border: 1px solid var(--muted);
-    background: white;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-  }
-  .tab-link[aria-current="page"], .tab-link.active {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
-  }
-
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  hr { margin: 20px 0; }
-  a { color: blue; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  .article { border: 1px solid var(--muted); background-color: var(--panel); padding: 12px; border-radius: 6px; margin: 12px 0; }
-  .article h3 { margin: 0 0 6px; }
-
-  footer { margin-top: auto; padding: 24px 20px; text-align: center; color: #333; }
-
-    .article {
-      line-height: 1.8;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>lingoのホームページ</title>
+  <style>
+    :root {
+      --ink: #000;
+      --bg: #add8e6;
+      --panel: #ffffee;
+      --accent: #1e90ff;
+      --muted: #aaa;
     }
-    .article br + br {
-      margin-bottom: 1em;
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--bg);
+      font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(#eeeecc 1px, transparent 1px),
+        radial-gradient(#eeeecc 1px, transparent 1px);
+      background-position: 0 0, 25px 25px;
+      background-size: 50px 50px;
+      display: flex;
+      flex-direction: column;
     }
-  
-.home-layout {
-  display: flex;
-  align-items: center;  /* ← 中央寄せに変更 */
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: -20px;    /* ← 位置を少し上に */
-}
 
-.home-text {
-  flex: 1;
-  min-width: 300px;
-}
+    .wrap { max-width: 900px; margin: 0 auto; padding: 20px; width: 100%; }
+    header h1 { font-size: 28px; margin: 0 0 4px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+    header small { color: #333; }
 
-.home-image {
-  flex-shrink: 0;
-  margin-top: -200px;    /* ← 写真だけもう少し上に上げる */
-}
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0 20px;
+      flex-wrap: wrap;
+    }
+    .tab-link {
+      appearance: none;
+      border: 1px solid var(--muted);
+      background: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .tab-link[aria-current="page"], .tab-link.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+    }
 
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
-</style>
+    hr { margin: 20px 0; }
+    a { color: blue; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .article { border: 1px solid var(--muted); background-color: var(--panel); padding: 12px; border-radius: 6px; margin: 12px 0; }
+    .article h3 { margin: 0 0 6px; }
+
+    footer { margin-top: auto; padding: 24px 20px; text-align: center; color: #333; }
+
+    .article { line-height: 1.8; }
+    .article br + br { margin-bottom: 1em; }
+
+    .home-layout {
+      display: flex;
+      align-items: center;  /* ← 中央寄せに変更 */
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: -20px;    /* ← 位置を少し上に */
+    }
+
+    .home-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .home-image {
+      flex-shrink: 0;
+      margin-top: -200px;   /* ← 写真だけもう少し上に上げる */
+    }
+  </style>
 
   <!-- PyScript 読み込み -->
-<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-<script defer src="https://pyscript.net/latest/pyscript.js"></script>
-
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -118,41 +111,40 @@
 
     <!-- HOME -->
     <section id="home" class="tab-content" aria-labelledby="tab-home">
-  <div class="home-layout">
-    <div class="home-text">
-      <h2>ようこそ</h2>
-      <p>ここは個人サイトです。ゆるく更新していきます。</p>
-      <p>HTMLの勉強と息抜きがてらホームページを作りました</p>
-      <p>CSSとjavaScriptも使いこなして，ゆくゆくは豪華なホームページにしたいです．</p>
-      <hr />
-      <h2>リンク</h2>
-      <ul>
-        <li><a href="https://www.duolingo.com/learn" target="_blank" rel="noopener noreferrer">Duolingo</a></li>
-      </ul>
-    </div>
-    <div class="home-image">
-      <img src="boy_photo.jpeg" alt="プロフィール写真" style="width:250px; border-radius:12px; box-shadow:2px 2px 6px gray;">
-    </div>
-  </div>
+      <div class="home-layout">
+        <div class="home-text">
+          <h2>ようこそ</h2>
+          <p>ここは個人サイトです。ゆるく更新していきます。</p>
+          <p>HTMLの勉強と息抜きがてらホームページを作りました</p>
+          <p>CSSとjavaScriptも使いこなして，ゆくゆくは豪華なホームページにしたいです．</p>
+          <hr />
+          <h2>リンク</h2>
+          <ul>
+            <li><a href="https://www.duolingo.com/learn" target="_blank" rel="noopener noreferrer">Duolingo</a></li>
+          </ul>
+        </div>
+        <div class="home-image">
+          <img src="boy_photo.jpeg" alt="プロフィール写真" style="width:250px; border-radius:12px; box-shadow:2px 2px 6px gray;">
+        </div>
+      </div>
+
       <h2>現在時刻</h2>
       <p id="clock"></p>
 
-　　  <py-script>
-      from pyscript import document
-      from datetime import datetime
-      import asyncio
+      <py-script>
+from pyscript import document
+from datetime import datetime
+import asyncio
 
-      async def update():
-         while True:
-             now = datetime.now().strftime("%H:%M:%S")
-             document.querySelector("#clock").innerText = now
-             await asyncio.sleep(1)
+async def update():
+    while True:
+        now = datetime.now().strftime("%H:%M:%S")
+        document.querySelector("#clock").innerText = now
+        await asyncio.sleep(1)
 
 await update()
-</py-script>
-
-</section>
-
+      </py-script>
+    </section>
 
     <!-- ABOUT -->
     <section id="about" class="tab-content" aria-labelledby="tab-about">
@@ -201,8 +193,7 @@ await update()
           ストレス？で食欲が増しているんですかね？爆食いしてしまいました<br>
           ホルモンは昔は捨てていて，ほる(大阪弁で捨てる)もん(もの)でホルモンと呼んでいたのが由来らしいですね．こんなにおいしいのに．<br>
           福岡には2回くらいしかいったことないですが，いつか本場のおいしい博多もつ鍋たべてみたいです<br>
-
-      </p>
+        </p>
       </div>
       <div class="article">
         <h3>2025年11月7日：初投稿</h3>
@@ -215,27 +206,27 @@ await update()
       </div>
     </section>
 
-   <!-- TRIVIA -->
-<section id="trivia" class="tab-content" aria-labelledby="tab-trivia">
-  <h2>■雑学</h2>
-  <div class="article">
-    <h3>日本の首都</h3>
-    <p>
-      みなさん，日本の首都はどこかご存じですか？<br>
-      そうです，とーきょ...とも言い切れないんですよ！<br>
-      通念上？実務上？はもちろん首都は東京なんですが，法律によって，首都が東京だと明記されていないんですよね．<br>
-      (ちなみに日本の公用語が日本語であるとも書いていない，まぁその法律は日本語で書かれてるけどね．てへ．)<br>
-      まぁそもそも天皇は京都の御所に住んでいて，1000年京都が都だったわけですが，明治政府が東京に天皇を住まわせようとしたわけです<br>
-      ここで重要なのは，遷都ではなく，奠都(てんと)だったということです<br>
-      遷都・・・前の都を廃止して，新しい都に移ること<br>
-      奠都・・・前の都を廃止せず，新たに都をつくること<br>
-      つまり，日本の首都は京都から東京に遷都してはいないんですね．だから京都が首都だと言えんこともないわけです<br>
-      天皇は施政上東京にいるだけで，首都は京都という意見ももちろんあるわけで，両方が首都という意見もあります<br>
-      まぁ通念上はもちろん首都は東京ですが，法律的や歴史的にみれば断言できない感じは個人的に好きです<br>
-      ちなみに僕の出身の滋賀にも大津京と都があった時代もあったのですが，秒でほろんだそうです．てへぺろ．ではまた．<br>
-    </p>
-  </div>
-</section>
+    <!-- TRIVIA -->
+    <section id="trivia" class="tab-content" aria-labelledby="tab-trivia">
+      <h2>■雑学</h2>
+      <div class="article">
+        <h3>日本の首都</h3>
+        <p>
+          みなさん，日本の首都はどこかご存じですか？<br>
+          そうです，とーきょ...とも言い切れないんですよ！<br>
+          通念上？実務上？はもちろん首都は東京なんですが，法律によって，首都が東京だと明記されていないんですよね．<br>
+          (ちなみに日本の公用語が日本語であるとも書いていない，まぁその法律は日本語で書かれてるけどね．てへ．)<br>
+          まぁそもそも天皇は京都の御所に住んでいて，1000年京都が都だったわけですが，明治政府が東京に天皇を住まわせようとしたわけです<br>
+          ここで重要なのは，遷都ではなく，奠都(てんと)だったということです<br>
+          遷都・・・前の都を廃止して，新しい都に移ること<br>
+          奠都・・・前の都を廃止せず，新たに都をつくること<br>
+          つまり，日本の首都は京都から東京に遷都してはいないんですね．だから京都が首都だと言えんこともないわけです<br>
+          天皇は施政上東京にいるだけで，首都は京都という意見ももちろんあるわけで，両方が首都という意見もあります<br>
+          まぁ通念上はもちろん首都は東京ですが，法律的や歴史的にみれば断言できない感じは個人的に好きです<br>
+          ちなみに僕の出身の滋賀にも大津京と都があった時代もあったのですが，秒でほろんだそうです．てへぺろ．ではまた．<br>
+        </p>
+      </div>
+    </section>
   </div>
 
   <footer>© 2025 lingo</footer>
@@ -260,7 +251,7 @@ await update()
 
       window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
-      links.forEach(a => a.addEventListener('click', (e) => {
+      links.forEach(a => a.addEventListener('click', () => {
         const name = a.dataset.target;
         if (!name) return;
         showTab(name);
