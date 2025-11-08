@@ -201,17 +201,18 @@
 <script>
 function updateClock() {
   const now = new Date();
-  const second = now.getSeconds();
-  const minute = now.getMinutes();
-  const hour = now.getHours();
+  const s = now.getSeconds();
+  const m = now.getMinutes();
+  const h = now.getHours();
 
-  const secondDeg = second * 6;
-  const minuteDeg = minute * 6 + second * 0.1;
-  const hourDeg = (hour % 12) * 30 + minute * 0.5;
+  // 12時を基準にするため各針で -90° 補正
+  const sDeg = s * 6 - 90;
+  const mDeg = (m * 6 + s * 0.1) - 90;
+  const hDeg = ((h % 12) * 30 + m * 0.5) - 90;
 
-  document.querySelector('.hand.second').style.transform = `rotate(${secondDeg}deg)`;
-  document.querySelector('.hand.minute').style.transform = `rotate(${minuteDeg}deg)`;
-  document.querySelector('.hand.hour').style.transform = `rotate(${hourDeg}deg)`;
+  document.querySelector('.hand.second').style.transform = `rotate(${sDeg}deg)`;
+  document.querySelector('.hand.minute').style.transform = `rotate(${mDeg}deg)`;
+  document.querySelector('.hand.hour').style.transform = `rotate(${hDeg}deg)`;
 }
 setInterval(updateClock, 1000);
 updateClock();
