@@ -76,7 +76,7 @@
       justify-content: space-between;
       gap: 20px;
       flex-wrap: wrap;
-      margin-top: -20px;    /* ← 位置を少し上に */
+      margin-top: 0px;    /* ← 位置を少し上に */
     }
 
     .home-text {
@@ -86,7 +86,7 @@
 
     .home-image {
       flex-shrink: 0;
-      margin-top: -200px;   /* ← 写真だけもう少し上に上げる */
+      margin-top: 0px;   /* ← 写真だけもう少し上に上げる */
     }
 
     #omikuji-box {
@@ -106,6 +106,25 @@
 #omikuji-button:hover {
   background-color: #f0f0f0;
 }
+
+    /* スマホ（～640px）では縦並び＆中央寄せ */
+@media (max-width: 640px) {
+  .home-layout {
+    flex-direction: column;   /* テキスト → 写真の縦並び */
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .home-image {
+    align-self: center;       /* 写真を中央に */
+  }
+  .home-image img {
+    width: min(70vw, 280px);  /* 画面幅に合わせて縮小 */
+    height: auto;
+  }
+  /* 余白を少し確保して下の時計が切れにくく */
+  #home { padding-bottom: 24px; }
+}
+
 
   </style>
 
