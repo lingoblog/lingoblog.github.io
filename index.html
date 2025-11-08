@@ -88,6 +88,25 @@
       flex-shrink: 0;
       margin-top: -200px;   /* ← 写真だけもう少し上に上げる */
     }
+
+    #omikuji-box {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#omikuji-button {
+  font-size: 18px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: white;
+  cursor: pointer;
+}
+
+#omikuji-button:hover {
+  background-color: #f0f0f0;
+}
+
   </style>
 
   <!-- PyScript 読み込み -->
@@ -212,7 +231,32 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock();
+
+
+<h2>おみくじ</h2>
+<div id="omikuji-box">
+  <button id="omikuji-button">おみくじを引く</button>
+  <p id="omikuji-result" style="font-size: 24px; font-weight: bold; margin-top: 10px;"></p>
+</div>
+
+<script>
+document.getElementById("omikuji-button").addEventListener("click", function() {
+  const fortunes = ["大吉", "中吉", "小吉", "吉", "凶"];
+  const result = fortunes[Math.floor(Math.random() * fortunes.length)];
+  const resultElement = document.getElementById("omikuji-result");
+  resultElement.textContent = result;
+
+  // 色分けして視覚的にも楽しく
+  switch (result) {
+    case "大吉": resultElement.style.color = "red"; break;
+    case "中吉": resultElement.style.color = "orange"; break;
+    case "小吉": resultElement.style.color = "green"; break;
+    case "吉": resultElement.style.color = "blue"; break;
+    case "凶": resultElement.style.color = "gray"; break;
+  }
+});
 </script>
+
 
     </section>
 
