@@ -159,17 +159,17 @@
 
 <!-- 時計のスタイル -->
 <style>
+/* 丸い時計の見た目 */
 .clock {
   position: relative;
   width: 200px;
   height: 200px;
   border: 8px solid #333;
   border-radius: 50%;
-  margin: 20px auto; /* ← 中央寄せ */
+  margin: 20px auto;
   background: white radial-gradient(circle at center, #fff 60%, #f2f2f2);
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }
-
 .hand {
   position: absolute;
   width: 50%;
@@ -181,25 +181,9 @@
   transform: rotate(90deg);
   transition: transform 0.05s linear;
 }
-
-.hand.hour {
-  width: 30%;
-  height: 4px;
-  background: #222;
-}
-
-.hand.minute {
-  width: 45%;
-  height: 3px;
-  background: #444;
-}
-
-.hand.second {
-  width: 48%;
-  height: 2px;
-  background: red;
-}
-
+.hand.hour { width: 30%; height: 4px; background: #222; }
+.hand.minute { width: 45%; height: 3px; background: #444; }
+.hand.second { width: 48%; height: 2px; background: red; }
 .center-dot {
   position: absolute;
   width: 10px;
@@ -210,6 +194,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 </style>
 
 <!-- 時計を動かすスクリプト -->
@@ -228,9 +213,9 @@ function updateClock() {
   document.querySelector('.hand.minute').style.transform = `rotate(${minuteDeg}deg)`;
   document.querySelector('.hand.hour').style.transform = `rotate(${hourDeg}deg)`;
 }
-
 setInterval(updateClock, 1000);
 updateClock();
+</script>
 
 
 <h2>おみくじ</h2>
