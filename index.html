@@ -135,18 +135,18 @@
     </div>
   </div>
       <h2>現在時刻</h2>
-<p id="clock"></p>
+      <p id="clock"></p>
 
-<py-script>
-from pyscript import document
-from datetime import datetime
-import asyncio
+　　  <py-script>
+      from pyscript import document
+      from datetime import datetime
+      import asyncio
 
-async def update():
-    while True:
-        now = datetime.now().strftime("%H:%M:%S")
-        document.querySelector("#clock").innerText = now
-        await asyncio.sleep(1)
+      async def update():
+         while True:
+             now = datetime.now().strftime("%H:%M:%S")
+             document.querySelector("#clock").innerText = now
+             await asyncio.sleep(1)
 
 await update()
 </py-script>
