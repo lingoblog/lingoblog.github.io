@@ -95,6 +95,11 @@
 
 
 </style>
+
+  <!-- PyScript 読み込み -->
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
 </head>
 <body>
   <div class="wrap">
@@ -129,6 +134,23 @@
       <img src="boy_photo.jpeg" alt="プロフィール写真" style="width:250px; border-radius:12px; box-shadow:2px 2px 6px gray;">
     </div>
   </div>
+      <h2>現在時刻</h2>
+<p id="clock"></p>
+
+<py-script>
+from pyscript import document
+from datetime import datetime
+import asyncio
+
+async def update():
+    while True:
+        now = datetime.now().strftime("%H:%M:%S")
+        document.querySelector("#clock").innerText = now
+        await asyncio.sleep(1)
+
+await update()
+</py-script>
+
 </section>
 
 
