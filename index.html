@@ -128,23 +128,18 @@
         </div>
       </div>
 
-      <h2>現在時刻</h2>
-      <p id="clock"></p>
+<h2>現在時刻</h2>
+<p id="clock"></p>
 
-<!-- 置き換え：時計のPyScript -->
-<py-script>
-from datetime import datetime
-from pyscript import document
-import asyncio
-
-async def tick():
-    while True:
-        document.querySelector("#clock").innerText = datetime.now().strftime("%H:%M:%S")
-        await asyncio.sleep(1)
-
-# トップレベルawaitは使わず、タスクとして起動
-asyncio.create_task(tick())
-</py-script>
+<script>
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('ja-JP', { hour12: false });
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 
     </section>
 
