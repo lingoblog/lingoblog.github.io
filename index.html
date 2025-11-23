@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>lingoのポートフォリオ</title>
   
-  <!-- Tailwind CSS (デザインを簡単に整えるためのフレームワーク) -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Google Fonts -->
@@ -36,13 +36,12 @@
   </script>
 
   <style>
-    /* カスタムスタイル（時計などの特殊な形状用） */
     body {
       font-family: "Noto Sans JP", sans-serif;
       transition: background-color 0.3s, color 0.3s;
     }
 
-    /* 時計のスタイル */
+    /* 時計のデザイン */
     .clock-face {
       background: conic-gradient(from 0deg, #f8fafc 0%, #e2e8f0 100%);
       box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -52,17 +51,16 @@
       box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
       border-color: #475569;
     }
-    
     .hand {
       position: absolute;
       bottom: 50%;
       left: 50%;
       transform-origin: bottom center;
       border-radius: 4px;
-      transition: transform 0.05s cubic-bezier(0.4, 2.08, 0.55, 0.44); /* 針の動きを少し弾ませる */
+      transition: transform 0.05s cubic-bezier(0.4, 2.08, 0.55, 0.44);
     }
 
-    /* おみくじの結果アニメーション */
+    /* おみくじアニメーション */
     @keyframes popIn {
       0% { transform: scale(0.5); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
@@ -72,13 +70,14 @@
     }
 
     /* タブのアクティブスタイル */
-    .tab-active {
+    .tab-link.active {
       background-color: #1e90ff;
       color: white;
       font-weight: bold;
       box-shadow: 0 4px 6px -1px rgba(30, 144, 255, 0.3);
+      border-color: transparent;
     }
-    .dark .tab-active {
+    .dark .tab-link.active {
       background-color: #3b82f6;
     }
   </style>
@@ -95,7 +94,7 @@
         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">最終更新日：2025年11月23日</p>
       </div>
       
-      <!-- ダークモード切り替えボタン -->
+      <!-- ダークモード切り替え -->
       <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="テーマ切り替え">
         <i data-lucide="moon" class="block dark:hidden w-6 h-6 text-slate-600"></i>
         <i data-lucide="sun" class="hidden dark:block w-6 h-6 text-yellow-400"></i>
@@ -106,20 +105,20 @@
   <!-- メインコンテンツ -->
   <main class="flex-grow w-full max-w-4xl mx-auto p-4 sm:p-6">
     
-    <!-- ナビゲーションタブ -->
+    <!-- ナビゲーションタブ（リンク式に変更） -->
     <nav class="flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
-      <button onclick="switchTab('home')" id="tab-home" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+      <a href="#home" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2 text-slate-600 dark:text-slate-300 no-underline">
         <i data-lucide="home" class="w-4 h-4"></i> ホーム
-      </button>
-      <button onclick="switchTab('about')" id="tab-about" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+      </a>
+      <a href="#about" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2 text-slate-600 dark:text-slate-300 no-underline">
         <i data-lucide="user" class="w-4 h-4"></i> 自己紹介
-      </button>
-      <button onclick="switchTab('blog')" id="tab-blog" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+      </a>
+      <a href="#blog" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2 text-slate-600 dark:text-slate-300 no-underline">
         <i data-lucide="book-open" class="w-4 h-4"></i> ブログ
-      </button>
-      <button onclick="switchTab('trivia')" id="tab-trivia" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+      </a>
+      <a href="#trivia" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2 text-slate-600 dark:text-slate-300 no-underline">
         <i data-lucide="lightbulb" class="w-4 h-4"></i> 雑学
-      </button>
+      </a>
     </nav>
 
     <!-- HOME セクション -->
@@ -145,3 +144,346 @@
                <img src="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico" class="w-5 h-5" alt="duolingo">
                Duolingoで勉強中！
             </a>
+          </div>
+        </div>
+
+        <!-- プロフィール画像エリア -->
+        <div class="relative group flex justify-center">
+          <div class="absolute inset-0 bg-blue-500 rounded-2xl rotate-6 opacity-20 group-hover:rotate-12 transition-transform"></div>
+          <div class="relative w-64 h-64 bg-slate-200 dark:bg-slate-700 rounded-2xl overflow-hidden shadow-xl flex items-center justify-center text-slate-400">
+             <img src="boy_photo.jpeg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="w-full h-full object-cover" alt="プロフィール画像">
+             <div style="display:none" class="text-center p-4">
+               <i data-lucide="camera" class="w-12 h-12 mx-auto mb-2"></i>
+               <p class="text-sm">No Image<br>boy_photo.jpeg</p>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- 時計 -->
+        <div class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col items-center">
+          <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i data-lucide="clock" class="w-5 h-5"></i> 現在時刻</h3>
+          <div class="clock relative w-48 h-48 rounded-full border-8 border-slate-800 dark:border-slate-600 clock-face">
+            <div class="hand hour w-1 bg-slate-800 dark:bg-slate-200 h-12 z-10"></div>
+            <div class="hand minute w-1 bg-slate-600 dark:bg-slate-400 h-16 z-20"></div>
+            <div class="hand second w-0.5 bg-red-500 h-20 z-30"></div>
+            <div class="absolute top-1/2 left-1/2 w-3 h-3 bg-slate-800 dark:bg-slate-200 rounded-full -translate-x-1/2 -translate-y-1/2 z-40"></div>
+            <!-- 目盛り -->
+            <div class="absolute inset-0 flex justify-center p-2"><span class="font-bold text-slate-400">12</span></div>
+            <div class="absolute inset-0 flex items-center justify-end p-2"><span class="font-bold text-slate-400">3</span></div>
+            <div class="absolute inset-0 flex items-end justify-center p-2"><span class="font-bold text-slate-400">6</span></div>
+            <div class="absolute inset-0 flex items-center justify-start p-2"><span class="font-bold text-slate-400">9</span></div>
+          </div>
+          <p id="digital-time" class="mt-4 font-mono text-xl font-bold text-slate-600 dark:text-slate-300">--:--:--</p>
+        </div>
+
+        <!-- おみくじ -->
+        <div class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
+          <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles" class="w-5 h-5 text-yellow-500"></i> 今日の運勢</h3>
+          <div class="bg-slate-50 dark:bg-slate-800 w-full flex-1 rounded-xl p-6 flex flex-col items-center justify-center mb-4 min-h-[150px]">
+            <p id="omikuji-result" class="text-4xl font-bold text-slate-300">?</p>
+            <p id="omikuji-comment" class="text-sm text-slate-500 mt-2 opacity-0 transition-opacity">運試ししてみよう！</p>
+          </div>
+          <button id="omikuji-button" class="w-full py-3 bg-slate-800 dark:bg-blue-600 text-white rounded-xl font-bold hover:scale-[1.02] active:scale-95 transition-transform shadow-lg hover:shadow-xl">
+            おみくじを引く
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT セクション -->
+    <section id="about" class="tab-content hidden animate-fade-in">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-blue-500 inline-block">プロフィール</h2>
+      <div class="bg-white dark:bg-panelDark rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+        <div class="p-6 sm:p-8 grid md:grid-cols-2 gap-8">
+          <div class="space-y-4">
+            <div class="grid grid-cols-[100px_1fr] gap-y-4 gap-x-2 items-baseline">
+              <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">住居</span>
+              <span class="font-medium">大阪（生まれは滋賀）</span>
+              <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">仕事</span>
+              <span class="font-medium">大手のメーカー</span>
+              <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">趣味</span>
+              <span class="font-medium">筋トレ、Duolingo、アメトーーク、水曜日のダウンタウン、映画鑑賞</span>
+              <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">好きなもの</span>
+              <span class="font-medium">レッドブル、ベッドの上、スコティッシュフォールド、マンチカン</span>
+              <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">特徴</span>
+              <span class="font-medium">右利き、くせ毛、目が悪い</span>
+            </div>
+          </div>
+          <div class="bg-blue-50 dark:bg-slate-800 rounded-xl p-6">
+            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+              <i data-lucide="target" class="w-5 h-5 text-red-500"></i> 目標・今の気持ち
+            </h3>
+            <ul class="space-y-3 text-slate-700 dark:text-slate-300">
+              <li class="flex items-start gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 mt-1 text-green-500 shrink-0"></i>
+                <span>めざせTOEIC 800点！ (現在 IP 675点 → 次回 730点目標)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="plane" class="w-4 h-4 mt-1 text-blue-500 shrink-0"></i>
+                <span>なんとなく海外で働いてみたい（かっこいいから）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="cloud-rain" class="w-4 h-4 mt-1 text-slate-400 shrink-0"></i>
+                <span>最近の気持ち：生きてる価値が見いだせない... 早く4月にならないかな...</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-t border-slate-100 dark:border-slate-700">
+          <h3 class="font-bold mb-2">活動紹介</h3>
+          <p class="text-slate-600 dark:text-slate-400">ほのぼの暮らしてます</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG セクション -->
+    <section id="blog" class="tab-content hidden animate-fade-in">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-blue-500 inline-block">ブログ</h2>
+      <div class="grid gap-6">
+        <!-- 記事カード 1 -->
+        <article class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> 2025年11月17日
+            <span class="px-2 py-0.5 rounded-md bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-200 text-xs">Game</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-white">デスノートとチェス</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+            最近のマイブームは専らチェスです。<br>
+            Duolingoという語学アプリにチェスの学習モードもあるのですが，もはやチェスしかやっていません。<br>
+            将棋にハマっていたこともあるのですが，将棋はコマ数も多いし，取った駒もまた召喚できるので，チェスよりもかなり複雑です。<br>
+            ... (中略) ...<br>
+            デスノートという漫画もチェスのような漫画で，少しずつ状況を固めて，確実に追い詰める，チェックメイトしていくというストーリーが非常にチェスに似ています。<br>
+            僕もいつかかっこよくチェックメイトと言えるように練習します。チェックメイトチェックメイト...
+          </p>
+        </article>
+
+        <!-- 記事カード 2 -->
+        <article class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> 2025年11月13日
+            <span class="px-2 py-0.5 rounded-md bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-200 text-xs">Life</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-white">筋トレ</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+             1年くらい前から筋トレを趣味にして，定期的にジムに行っています。<br>
+             高校時代は水泳部でそこそこマッチョでした。しかし，私はすごくやせ型なのです。<br>
+             しばらく運動していなかった時期に，お風呂で鏡を見ると，ガリガリの体を見て失望し，筋トレをしようと奮起しました。<br>
+             筋肉がついてくるとQOLがすごく上がった気がしました。いつかマッチョになって温泉でいきりちらかしたいですね。<br>
+             あ、目標できました。頑張ります。頑張りまちゅ。
+          </p>
+        </article>
+
+        <!-- 記事カード 3 -->
+        <article class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> 2025年11月9日
+            <span class="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200 text-xs">Mood</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-white">サザエさん症候群</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+            サザエさん症候群という言葉をご存じですか？<br>
+            もうすぐ月曜日になるということから日曜日に憂鬱になることの俗称です。<br>
+            僕でいえば，プールの塩素の匂いを嗅ぐとすごく憂鬱な気持ちになりますね。<br>
+            高校時代に水泳部で部長をしていたのですが，それが本当に憂鬱で，今でも塩素の匂いを嗅ぐとすごくつらい気持ちになりますね...
+          </p>
+        </article>
+
+        <!-- 記事カード 4 -->
+        <article class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> 2025年11月8日
+            <span class="px-2 py-0.5 rounded-md bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-200 text-xs">Study</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-white">Duolingoについて</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+            最近Duolingoというアプリにハマっているんですが，素晴らしいアプリですね。<br>
+            5問連続正解すると，ぽびん！って効果音なるんですが，それが特に気持ちいです。<br>
+            ただ不満もあります。リスニングの問題が簡単すぎて，これでいいのか...？となります。（ぽびん...）<br>
+            本格的に言語を習得したい人には向いてないかもですねー(oh...bad...)
+          </p>
+        </article>
+
+        <!-- 記事カード 5 -->
+        <article class="bg-white dark:bg-panelDark p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> 2025年11月8日
+            <span class="px-2 py-0.5 rounded-md bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-200 text-xs">Food</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-slate-800 dark:text-white">もつ鍋</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+            最近もつ鍋作りにハマっています。出来合いのつゆに切ったやさいともつを入れるだけなんですけどね。<br>
+            もつを入れた瞬間一気にあぶらみの甘い匂いがして，食欲をそそりますね。<br>
+            ラーメン5人前と大量に食べてしまいました。ストレス？で食欲が増しているんですかね？<br>
+            いつか本場のおいしい博多もつ鍋たべてみたいです。
+          </p>
+        </article>
+        <div class="text-center text-slate-400 text-sm mt-4">これ以前の記事はありません</div>
+      </div>
+    </section>
+
+    <!-- TRIVIA セクション -->
+    <section id="trivia" class="tab-content hidden animate-fade-in">
+      <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-yellow-500 inline-block">雑学</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-blue-50 dark:bg-slate-800 p-6 rounded-2xl border border-blue-100 dark:border-slate-700">
+          <h3 class="text-lg font-bold mb-3 text-blue-800 dark:text-blue-300">🟦 ブルーな気持ち</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            憂鬱な気持ちをブルーと言いますが，一説には奴隷労働をさせられていた黒人が見た空の色が由来しているそうです。<br>
+            雨の日は比較的楽な作業ができましたが、晴れの日（青空）は過酷な作業。「今日は青空か...」という絶望からきているとか。<br>
+            一見晴れている青空はハッピーな印象を受けますが、様々な見方がありますね。
+          </p>
+        </div>
+        <div class="bg-orange-50 dark:bg-slate-800 p-6 rounded-2xl border border-orange-100 dark:border-slate-700">
+          <h3 class="text-lg font-bold mb-3 text-orange-800 dark:text-orange-300">🍫 電子レンジの発明</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            レーダーの近くに立っていた技術者が、胸ポケットのチョコが溶けていることに気づいたのがきっかけ。<br>
+            「卵が爆発した！」などの実験を経て、マイクロ波が水分子を振動させることが発見されました。<br>
+            最初にチョコを入れていた人、もう少しで心臓が爆発するところだったかも...？
+          </p>
+        </div>
+        <div class="bg-purple-50 dark:bg-slate-800 p-6 rounded-2xl border border-purple-100 dark:border-slate-700 sm:col-span-2">
+          <h3 class="text-lg font-bold mb-3 text-purple-800 dark:text-purple-300">🗼 日本の首都</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            実は法律で「首都は東京」と明記されていません。<br>
+            明治政府は「遷都（都を移す）」ではなく「奠都（新しく都を作る）」を行いました。<br>
+            つまり京都は廃止されていないので、京都が首都だという説も...？<br>
+            ちなみに滋賀の大津京は秒で滅んだそうです。てへぺろ。
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <p class="text-slate-500 dark:text-slate-400">© 2025 lingo - Designed with Tailwind CSS</p>
+      <div class="flex justify-center gap-4 mt-4">
+        <a href="#" class="text-slate-400 hover:text-blue-500 transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+        <a href="#" class="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- タブ切り替えロジック（URLハッシュ監視型） ---
+    // ハッシュ（#homeなど）が変わった時に実行される関数
+    function updateView() {
+      // 現在のハッシュを取得（なければ home）
+      const hash = window.location.hash.replace('#', '') || 'home';
+      
+      // 一旦すべてのセクションを隠す
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('animate-fade-in'); 
+      });
+      
+      // 対象のセクションを表示
+      const target = document.getElementById(hash);
+      if (target) {
+        target.classList.remove('hidden');
+        setTimeout(() => target.classList.add('animate-fade-in'), 10);
+      } else {
+        // 存在しないハッシュならHomeを表示
+        const home = document.getElementById('home');
+        if(home) home.classList.remove('hidden');
+      }
+
+      // タブの見た目を更新
+      document.querySelectorAll('.tab-link').forEach(link => {
+        link.classList.remove('active');
+        // リンク先が現在のハッシュと一致するか確認
+        if (link.getAttribute('href') === '#' + hash) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // 初回ロード時と、ハッシュ変更時（戻るボタンなど）に実行
+    window.addEventListener('load', updateView);
+    window.addEventListener('hashchange', updateView);
+
+
+    // --- 時計ロジック ---
+    function updateClock() {
+      const now = new Date();
+      const s = now.getSeconds();
+      const m = now.getMinutes();
+      const h = now.getHours();
+
+      const sDeg = ((s / 60) * 360);
+      const mDeg = ((m / 60) * 360) + ((s/60)*6);
+      const hDeg = ((h % 12) / 12 * 360) + ((m/60)*30);
+
+      const secHand = document.querySelector('.hand.second');
+      if(secHand) secHand.style.transform = `rotate(${sDeg}deg)`;
+      
+      const minHand = document.querySelector('.hand.minute');
+      if(minHand) minHand.style.transform = `rotate(${mDeg}deg)`;
+      
+      const hourHand = document.querySelector('.hand.hour');
+      if(hourHand) hourHand.style.transform = `rotate(${hDeg}deg)`;
+
+      const timeString = now.toLocaleTimeString('ja-JP', { hour12: false });
+      const digitEl = document.getElementById('digital-time');
+      if(digitEl) digitEl.textContent = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+
+    // --- おみくじロジック ---
+    const omikujiBtn = document.getElementById("omikuji-button");
+    if (omikujiBtn) {
+      omikujiBtn.addEventListener("click", function() {
+        const fortunes = [
+          { res: "大吉", color: "text-red-500", comment: "今日は最高の日になりそう！" },
+          { res: "中吉", color: "text-orange-500", comment: "いいことあるかも！" },
+          { res: "小吉", color: "text-green-500", comment: "ささやかな幸せを見つけよう。" },
+          { res: "吉",   color: "text-blue-500", comment: "普通が一番。" },
+          { res: "凶",   color: "text-slate-500", comment: "足元に気をつけて！" }
+        ];
+        
+        const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+        const resultEl = document.getElementById("omikuji-result");
+        const commentEl = document.getElementById("omikuji-comment");
+        
+        resultEl.className = "text-6xl font-bold mb-2"; 
+        resultEl.classList.remove("animate-pop");
+        void resultEl.offsetWidth; // リフロー
+        
+        resultEl.textContent = random.res;
+        resultEl.classList.add(random.color, "animate-pop");
+        
+        commentEl.textContent = random.comment;
+        commentEl.classList.remove("opacity-0");
+      });
+    }
+
+
+    // --- ダークモード切り替え ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      themeToggleBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      });
+    }
+
+    // --- アイコン初期化（エラー対策済み） ---
+    // 最後に実行することで、もし失敗しても他の機能（タブ移動など）を巻き込まないようにする
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    } else {
+      console.warn("Lucide icons failed to load. Icons will be invisible.");
+    }
+  </script>
+</body>
+</html>
