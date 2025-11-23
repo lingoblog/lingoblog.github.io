@@ -1,470 +1,147 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>lingoのホームページ</title>
+  <title>lingoのポートフォリオ</title>
+  
+  <!-- Tailwind CSS (デザインを簡単に整えるためのフレームワーク) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- アイコンライブラリ (Lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwindの設定 -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+          },
+          colors: {
+            primary: '#1e90ff',
+            bgLight: '#f0f9ff',
+            bgDark: '#0f172a',
+            panelLight: '#ffffff',
+            panelDark: '#1e293b',
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --ink: #000;
-      --bg: #add8e6;
-      --panel: #ffffee;
-      --accent: #1e90ff;
-      --muted: #aaa;
-    }
-
-    html, body { height: 100%; }
+    /* カスタムスタイル（時計などの特殊な形状用） */
     body {
-      margin: 0;
-      color: var(--ink);
-      background-color: var(--bg);
-      font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      line-height: 1.6;
-      background-image:
-        radial-gradient(#eeeecc 1px, transparent 1px),
-        radial-gradient(#eeeecc 1px, transparent 1px);
-      background-position: 0 0, 25px 25px;
-      background-size: 50px 50px;
-      display: flex;
-      flex-direction: column;
+      font-family: "Noto Sans JP", sans-serif;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .wrap { max-width: 900px; margin: 0 auto; padding: 20px; width: 100%; }
-    header h1 { font-size: 28px; margin: 0 0 4px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
-    header small { color: #333; }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      margin: 16px 0 20px;
-      flex-wrap: wrap;
+    /* 時計のスタイル */
+    .clock-face {
+      background: conic-gradient(from 0deg, #f8fafc 0%, #e2e8f0 100%);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
-    .tab-link {
-      appearance: none;
-      border: 1px solid var(--muted);
-      background: white;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+    .dark .clock-face {
+      background: conic-gradient(from 0deg, #1e293b 0%, #0f172a 100%);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      border-color: #475569;
     }
-    .tab-link[aria-current="page"], .tab-link.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+    
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      border-radius: 4px;
+      transition: transform 0.05s cubic-bezier(0.4, 2.08, 0.55, 0.44); /* 針の動きを少し弾ませる */
     }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    hr { margin: 20px 0; }
-    a { color: blue; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .article { border: 1px solid var(--muted); background-color: var(--panel); padding: 12px; border-radius: 6px; margin: 12px 0; }
-    .article h3 { margin: 0 0 6px; }
-
-    footer { margin-top: auto; padding: 24px 20px; text-align: center; color: #333; }
-
-    .article { line-height: 1.8; }
-    .article br + br { margin-bottom: 1em; }
-
-    .home-layout {
-      display: flex;
-      align-items: center;  /* ← 中央寄せに変更 */
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 0px;    /* ← 位置を少し上に */
+    /* おみくじの結果アニメーション */
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
-    .home-text {
-      flex: 1;
-      min-width: 300px;
+    /* タブのアクティブスタイル */
+    .tab-active {
+      background-color: #1e90ff;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 6px -1px rgba(30, 144, 255, 0.3);
     }
-
-    .home-image {
-      flex-shrink: 0;
-      margin-top: 0px;   /* ← 写真だけもう少し上に上げる */
+    .dark .tab-active {
+      background-color: #3b82f6;
     }
-
-    #omikuji-box {
-  text-align: center;
-  margin: 20px 0;
-}
-
-#omikuji-button {
-  font-size: 18px;
-  padding: 8px 20px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background-color: white;
-  cursor: pointer;
-}
-
-#omikuji-button:hover {
-  background-color: #f0f0f0;
-}
-
-    /* スマホ（～640px）では縦並び＆中央寄せ */
-@media (max-width: 640px) {
-  .home-layout {
-    flex-direction: column;   /* テキスト → 写真の縦並び */
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .home-image {
-    align-self: center;       /* 写真を中央に */
-  }
-  .home-image img {
-    width: min(70vw, 280px);  /* 画面幅に合わせて縮小 */
-    height: auto;
-  }
-  /* 余白を少し確保して下の時計が切れにくく */
-  #home { padding-bottom: 24px; }
-}
-
-
   </style>
-
-  <!-- PyScript 読み込み -->
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
-<body>
-  <div class="wrap">
-    <header>
-      <h1>lingoのホームページ</h1>
-      <small>最終更新日：2025年11月8日</small>
-    </header>
+<body class="bg-bgLight text-slate-800 dark:bg-bgDark dark:text-slate-200 min-h-screen flex flex-col">
 
-    <!-- Tab Buttons -->
-    <nav class="tabs" aria-label="コンテンツのタブ">
-      <a class="tab-link" href="#home" data-target="home">ホーム</a>
-      <a class="tab-link" href="#about" data-target="about">自己紹介</a>
-      <a class="tab-link" href="#blog" data-target="blog">ブログ</a>
-      <a class="tab-link" href="#trivia" data-target="trivia">雑学</a>
+  <!-- ヘッダー -->
+  <header class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-200 dark:border-slate-700">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">
+          lingoのホームページ
+        </h1>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">最終更新日：2025年11月23日</p>
+      </div>
+      
+      <!-- ダークモード切り替えボタン -->
+      <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="テーマ切り替え">
+        <i data-lucide="moon" class="block dark:hidden w-6 h-6 text-slate-600"></i>
+        <i data-lucide="sun" class="hidden dark:block w-6 h-6 text-yellow-400"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-grow w-full max-w-4xl mx-auto p-4 sm:p-6">
+    
+    <!-- ナビゲーションタブ -->
+    <nav class="flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
+      <button onclick="switchTab('home')" id="tab-home" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+        <i data-lucide="home" class="w-4 h-4"></i> ホーム
+      </button>
+      <button onclick="switchTab('about')" id="tab-about" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+        <i data-lucide="user" class="w-4 h-4"></i> 自己紹介
+      </button>
+      <button onclick="switchTab('blog')" id="tab-blog" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+        <i data-lucide="book-open" class="w-4 h-4"></i> ブログ
+      </button>
+      <button onclick="switchTab('trivia')" id="tab-trivia" class="tab-link px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-200 flex items-center gap-2">
+        <i data-lucide="lightbulb" class="w-4 h-4"></i> 雑学
+      </button>
     </nav>
 
-    <!-- HOME -->
-    <section id="home" class="tab-content" aria-labelledby="tab-home">
-      <div class="home-layout">
-        <div class="home-text">
-          <h2>ようこそ</h2>
-          <p>ここは個人サイトです。ゆるく更新していきます。</p>
-          <p>HTMLの勉強と息抜きがてらホームページを作りました</p>
-          <p>CSSとjavaScriptも使いこなして，ゆくゆくは豪華なホームページにしたいです．</p>
-          <hr />
-          <h2>リンク</h2>
-          <ul>
-            <li><a href="https://www.duolingo.com/learn" target="_blank" rel="noopener noreferrer">Duolingo</a></li>
-          </ul>
-        </div>
-        <div class="home-image">
-          <img src="boy_photo.jpeg" alt="プロフィール写真" style="width:250px; border-radius:12px; box-shadow:2px 2px 6px gray;">
-        </div>
-      </div>
-
-<h2>現在時刻</h2>
-
-<!-- 丸い時計をここに配置 -->
-<div class="clock">
-  <div class="hand hour"></div>
-  <div class="hand minute"></div>
-  <div class="hand second"></div>
-  <div class="center-dot"></div>
-</div>
-
-<!-- 時計のスタイル -->
-<style>
-/* 丸い時計の見た目 */
-.clock {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  border: 8px solid #333;
-  border-radius: 50%;
-  margin: 20px auto;
-  background: white radial-gradient(circle at center, #fff 60%, #f2f2f2);
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-}
-.hand {
-  position: absolute;
-  width: 50%;
-  height: 2px;
-  background: #000;
-  top: 50%;
-  left: 50%;
-  transform-origin: 0% 50%;
-  transform: rotate(90deg);
-  transition: transform 0.05s linear;
-}
-.hand.hour { width: 30%; height: 4px; background: #222; }
-.hand.minute { width: 45%; height: 3px; background: #444; }
-.hand.second { width: 48%; height: 2px; background: red; }
-.center-dot {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #000;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-</style>
-
-<!-- 時計を動かすスクリプト -->
-<script>
-function updateClock() {
-  const now = new Date();
-  const s = now.getSeconds();
-  const m = now.getMinutes();
-  const h = now.getHours();
-
-  // 12時を基準にするため各針で -90° 補正
-  const sDeg = s * 6 - 90;
-  const mDeg = (m * 6 + s * 0.1) - 90;
-  const hDeg = ((h % 12) * 30 + m * 0.5) - 90;
-
-  document.querySelector('.hand.second').style.transform = `rotate(${sDeg}deg)`;
-  document.querySelector('.hand.minute').style.transform = `rotate(${mDeg}deg)`;
-  document.querySelector('.hand.hour').style.transform = `rotate(${hDeg}deg)`;
-}
-setInterval(updateClock, 1000);
-updateClock();
-</script>
-
-
-<h2>おみくじ</h2>
-<div id="omikuji-box">
-  <button id="omikuji-button">おみくじを引く</button>
-  <p id="omikuji-result" style="font-size: 24px; font-weight: bold; margin-top: 10px;"></p>
-</div>
-
-<script>
-document.getElementById("omikuji-button").addEventListener("click", function() {
-  const fortunes = ["大吉", "中吉", "小吉", "吉", "凶"];
-  const result = fortunes[Math.floor(Math.random() * fortunes.length)];
-  const resultElement = document.getElementById("omikuji-result");
-  resultElement.textContent = result;
-
-  // 色分けして視覚的にも楽しく
-  switch (result) {
-    case "大吉": resultElement.style.color = "red"; break;
-    case "中吉": resultElement.style.color = "orange"; break;
-    case "小吉": resultElement.style.color = "green"; break;
-    case "吉": resultElement.style.color = "blue"; break;
-    case "凶": resultElement.style.color = "gray"; break;
-  }
-});
-</script>
-
-
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="tab-content" aria-labelledby="tab-about">
-      <h2>■プロフィール</h2>
-      <p>住所：大阪</p>
-      <p>趣味：筋トレ・Duolingo・アメトーーク，水曜日のダウンタウンをみること・映画鑑賞</p>
-      <p>仕事：大手のメーカー</p>
-      <p>利き手：右利き</p>
-      <p>好きなエナドリ：レッドブル</p>
-      <p>部屋の好きな場所：ベッドの上</p>
-      <p>髪質：くせ毛</p>
-      <p>目：悪い</p>
-      <p>好きな描種：スコティッシュフォールド，マンチカン</p>
-      <p>最近の気持ち：生きてる価値が見いだせない，早く４月にならないかな．．．</p><br>
-      <p>生まれは滋賀県，住居は大阪</p>
-      <p>なんとなく海外で働いてみたいので，英語の勉強がんばります</p>
-      <p>めざせTOEIC800点です．この間TOEICIPで675取りました．次回の受験で730取りたいですね</p>
-      <p>海外勤務，なんとなくかっこいい．ただそれだけの動機です</p>
-      <hr />
-      <h2>■活動紹介</h2>
-      <p>ほのぼの暮らしてます</p>
-    </section>
-
-    <!-- BLOG -->
-    <section id="blog" class="tab-content" aria-labelledby="tab-blog">
-      <h2>■ブログ</h2>
-       <div class="article">
-        <h3>2025年11月17日：デスノートとチェス</h3>
-        <p>最近のマイブームは専らチェスです．<br>
-           Duolongoという語学アプリにチェスの学習モードもあるのですが，もはやチェスしかやっていません．<br>
-         　将棋にハマっていたこともあるのですが，将棋はコマ数も多いし，取った駒もまた召喚できるので，チェスよりもかなり複雑です．<br>
-           まぁ，似ているゲームですが，取った駒を使えるというルールにより，全く異なるゲーム展開になります．<br>
-           そもそも起源としては，チェスも将棋も同じだそうで，ある何処で分岐して，それぞれが変化したものだそうです．<br>
-         　チェスをやっていて，興味深いなと思ったのは，ステイルメイトというルールです．<br>
-           チェックメイトは相手のキングを逃げられなくすることですが，ステイルメイトはどう動いても，チェックメイトされにいってしまう状態のことです．<br>
-           どう考えても，勝ちだろと，最初は思っていたのですが，よくよく考えると深いルールだなと思いおました．<br>
-           チェスでは実際にキングを取ることはないです．どのパターンを考えてもキングを取れるとなった時点，つまりチェックメイトでゲーム終了です．<br>
-           王が自ら取られにいく，自殺行為の動きはできないんですね．ステイルメイトは将棋にはないルールです．<br><br>
-           僕が初めてチェスというゲームを知ったのは，デスノートというアニメの実写映画版を見た時です<br>
-           主人公とライバルがチェスをしていて，チェックメイトというセリフはとても印象的でした．<br>
-           デスノートという漫画はもチェスのような漫画で，少しずつ状況を固めて，確実に追い詰める，チェックメイトしていくというストーリーが非常にチェスに似ています<br>
-           そのような漫画でチェスのシーンを用意したのは，暗示だったんだなと最近気が付きました．<br>
-           僕もいつかかっこよくチェックメイトと言えるように練習すます．チェックメイトチェックメイトチェックメイトチェックメイト．．．
-        </p>
-      </div>
-      <div class="article">
-        <h3>2025年11月13日：筋トレ</h3>
-        <p>
-          1年くらい前から筋トレを趣味にして，定期的にジムに行っています<br>
-          3年くらい前にも半年くらいしていたのですが，なぜか行かなくなって去年再開し，今のところ続いています<br>
-          そもそも，高校時代は水泳部でそこそこマッチョでした．<br>
-          高校の時，体育は2クラス合同だったのですが，他クラスの人の中には，体育の時にたまに見かけるだけの人もいるわけです．<br>
-          男子は同じ更衣室で着替えるのですが，体育の時だけ僕を見ていた人は，更衣室の僕の体を見て，筋肉の人と，記憶していたぐらいには，筋肉あったそうです．(のちのちその人話した時に聞きました）<br>
-          しかし，私はすごくやせ型なのです．運動していないと太ってしまう人が多いようですが，私は逆に瘦せてしまうのです．<br>
-          しばらく運動していなかった時期に，お風呂で鏡を見ると，戦時中かってくらいガリガリの体を見て，失望し，筋トレをしようと奮起しました<br>
-          筋肉がついてくると，お風呂で鏡を見るのが，苦ではなくなり，QOLがすごく上がった気がしました<br>
-          ただ誰かに見せるわけでもないのに，なぜこんな苦しい思いをしているのかと，たまに不思議な気持ちになります<br>
-          温泉に行った時に，体ぶよぶよのおじさん見ると，あーはなりたくないなと思います<br>
-          いつかマッチョになって温泉でいきりちらかしたいですね<br>
-          あ．目標できました．頑張ります．頑張りまちゅ．
-        </p>
-      </div>
-      <div class="article">
-        <h3>2025年11月9日：サザエさん症候群</h3>
-        <p>
-          サザエさん症候群という言葉をご存じですか？<br>
-          最近は認知度も増えてきたみたいですね<br>
-          簡単にいうと，もうすぐ月曜日になるということから日曜日に憂鬱になることの俗称です<br>
-          もちろん正式な医学用語ではなく，ネットスラングですね．海外で同じ意味を指すことばとして，Blue Mondayなどと呼ばれるみたいですね，<br>
-          なぜサザエさん症候群という名前かというと，想像つくと思いますが，半世紀以上日曜の夕方に放送されているアニメのサザエさんを見ると，休日の終わりを感じる，学校や仕事が始まる絶望を感じる，ということからサザエさん症候群と呼ばれているようです<br>
-          僕は，サザエさんを見た時に，症候群通りの感情に多々なっていたので．この言葉を見た時，意味を調べずとも意味が分かりましたね．<br>
-          まぁ今ではみんな同じテレビをみているということはなくなりましたが，みんな必ずテレビを見ている時代があったからこそのネーミングですよね．<br><br>
-          サザエさん症候群のように，憂鬱なものが訪れるといったようなサイン？アイコン？といったようなものは皆さんはありますか？<br>
-          僕でいえば，プールの塩素の匂いを嗅ぐとすごく憂鬱な気持ちになりますね，<br>
-          なぜかというと，高校時代に水泳部で部長をしていたのですが，それが本当に憂鬱で，今でも塩素の匂いを嗅ぐとすごくつらい気持ちになりますね．．．<br>
+    <!-- HOME セクション -->
+    <section id="home" class="tab-content animate-fade-in">
+      <div class="grid md:grid-cols-2 gap-8 items-center mb-12">
+        <div class="space-y-4">
+          <div class="inline-block px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200 text-sm font-medium">
+            Welcome 👋
+          </div>
+          <h2 class="text-4xl font-bold leading-tight">
+            ようこそ、<br>
+            <span class="text-primary">lingoの個人サイト</span>へ。
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+            ここは個人サイトです。ゆるく更新していきます。<br>
+            HTMLの勉強と息抜きがてらホームページを作りました。<br>
+            CSSとJavaScriptも使いこなして、ゆくゆくは豪華なホームページにしたいです。
+          </p>
           
-        </p>
-      </div>
-      
-      <div class="article">
-        <h3>2025年11月8日：Duolingoについて</h3>
-        <p>
-          最近Duolingoというアプリにハマっているんですが，素晴らしいアプリですね<br>
-          何がいいかというと，遊び感覚で外国語に触れられるので，勉強している感じがないことですね<br>
-          特に5問連続正解すると，ぽびん！って効果音なるんですが，それが特に気持ちいです<br>
-          あと毎日続けれるような仕組みはたくさんあるのが良いよね！(ぽびん！)<br>
-          <br>
-          不満もあります<br>
-          難易度によってコースが分かれてるんですが，例えば，リスニングが苦手でリーディングが得意だった場合，コースを行き来しなきゃいけないんですね．<br>
-          しかもレベルが低い方に進む場合はどこまで進んだかわからない．．．<br>
-          あとリスニングの問題が，リスニングのレベルの割に問いが簡単すぎて，これでいいのか．．．？となります．（ぽびん．．．）<br>
-          だから本格的に言語を習得したい．試験のスコアを上げたいってのには，向いてないかもですねー(oh...bad...)<br>
-          メインで他に英語の勉強をしながら，補助的に英語にリラックスしながら触れるってのが一番いいですね！(Do you understand?)<br>
-          まぁでもともかく世界で一番使われている語学アプリだそうで，最高のアプリであることは間違いないです！
-        </p>
-      </div>
-      <div class="article">
-        <h3>2025年11月8日：もつ鍋</h3>
-        <p>
-          最近もつ鍋作りにハマっています<br>
-          もつ鍋作りといっても，出来合いのつゆに切ったやさいともつを入れるだけなんですけどね．<br>
-          もつは最後にいれるんですが，もつを入れた瞬間一気にあぶらみの甘い匂いがして，食欲をそそりますね<br>
-          野菜と言っても大して体積もないので(ほぼ水）なので，ほぼラーメンを食べている感じですね<br>
-          キャベツ半玉(大きめ)，人参2本，もつ10個？，ニンニク10かけ？，そしてラーメン5人前と大量に食べてしまいました<br>
-          途中つゆがなくなり，醬油やみりんを足して自作つゆを追加しました．(最初からそのつゆでよかったのでは．．．）<br>
-          ストレス？で食欲が増しているんですかね？爆食いしてしまいました<br>
-          ホルモンは昔は捨てていて，ほる(大阪弁で捨てる)もん(もの)でホルモンと呼んでいたのが由来らしいですね．こんなにおいしいのに．<br>
-          福岡には2回くらいしかいったことないですが，いつか本場のおいしい博多もつ鍋たべてみたいです
-        </p>
-      </div>
-      <div class="article">
-        <h3>2025年11月7日：初投稿</h3>
-        <p>備忘録として，ブログを書いていきます．</p>
-        <p>今日はしなければならないことがたくさんあるのに，違うことして現実逃避をしてる時間がながかったですね</p>
-      </div>
-      <div class="article">
-        <h3>開設の挨拶</h3>
-        <p>ブログ・日記を書くためのホームページを制作しました</p>
-      </div>
-    </section>
-
-    <!-- TRIVIA -->
-    <section id="trivia" class="tab-content" aria-labelledby="tab-trivia">
-      <h2>■雑学</h2>
-      <div class="article">
-        <h3>ブルーな気持ち</h3>
-        <p>
-          ただいますごくブルーな気持ちです．<br>
-          ところで，憂鬱な気持ちをブルー(blue)と言いますが，なぜだかご存じですか？<br>
-          これは諸説あるので，一つの説ですが，奴隷労働をさせられていた黒人が，見た空の色が由来しているという説です<br>
-          奴隷は日々，過酷な作業をさせられていましたが，雨の日は比較的楽な作業ができたそうです．しかし，晴れの日は過酷な作業．今日はどっちだろうと思い空を見上げると青い空．そこから憂鬱なことをブルーと言うようになったそうです<br>
-          たしかに，これはつらい部活をやっていた僕もすごく共感できることです（まぁ一緒にしてはいけないと思いますが．．．）<br>
-          一見晴れている青空は，ハッピーな印象を受けそうなものですが，様々な見方がありますね．<br>
-          ちなみに，音楽のジャンルのブルースも，悲しい歌を歌っていたところから，ブルースと呼ばれたという説もあるみたいです．<br>
-          
-        </p>
-    　 </div>
-      
-      <div class="article">
-        <h3>電子レンジの発明</h3>
-        <p>
-          電子レンジって便利ですよねー<br>
-          電子レンジに使われているマイクロウェーブが発見のされ方がおもしろいんですよ．<br>
-          戦争中に軍事用のレーダーの近くに立っていた技術者が，胸ポケットのチョコレートが不自然に溶けていることに気が付いた<br>
-          不思議に思った技術者はいろんなものを置いて実験したら，卵が爆発したり，いろんな驚くべき事が起こったんですね<br>
-          それからある周波数の電磁波は水分子を振動させて加熱させる効果が見つかったんですよね．<br>
-          それが食べ物を温められるんじゃないかとなって，電子レンジという商品が誕生したわけですね<br>
-          当初はものすごく高価だったそうですが，今では必ず家庭にありますよね<br>
-          ほとんどの物が手に入る素晴らしい時代・国に生まれましたね（地球にうまれてよかったー！）<br>
-          てか，最初にチョコを胸ポケットに入れてた人，やばくないすか？もう少しで心臓爆発するとこだった．．．
-        </p>
-    　 </div>
-      
-       <div class="article">
-        <h3>日本の首都</h3>
-        <p>
-          みなさん，日本の首都はどこかご存じですか？<br>
-          そうです，とーきょ...とも言い切れないんですよ！<br>
-          通念上？実務上？はもちろん首都は東京なんですが，法律によって，首都が東京だと明記されていないんですよね．<br>
-          (ちなみに日本の公用語が日本語であるとも書いていない，まぁその法律は日本語で書かれてるけどね．てへ．)<br>
-          まぁそもそも天皇は京都の御所に住んでいて，1000年京都が都だったわけですが，明治政府が東京に天皇を住まわせようとしたわけです<br>
-          ここで重要なのは，遷都ではなく，奠都(てんと)だったということです<br>
-          遷都・・・前の都を廃止して，新しい都に移ること<br>
-          奠都・・・前の都を廃止せず，新たに都をつくること<br>
-          つまり，日本の首都は京都から東京に遷都してはいないんですね．だから京都が首都だと言えんこともないわけです<br>
-          天皇は施政上東京にいるだけで，首都は京都という意見ももちろんあるわけで，両方が首都という意見もあります<br>
-          まぁ通念上はもちろん首都は東京ですが，法律的や歴史的にみれば断言できない感じは個人的に好きです<br>
-          ちなみに僕の出身の滋賀にも大津京と都があった時代もあったのですが，秒でほろんだそうです．てへぺろ．ではまた．<br>
-        </p>
-      </div>
-    </section>
-  </div>
-
-  <footer>© 2025 lingo</footer>
-
-  <script>
-    (function () {
-      const links = Array.from(document.querySelectorAll('.tab-link'));
-      const sections = Array.from(document.querySelectorAll('.tab-content'));
-
-      function showTab(name) {
-        const target = name || 'home';
-        sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
-        links.forEach(a => {
-          const active = a.dataset.target === target;
-          a.classList.toggle('active', active);
-          a.setAttribute('aria-current', active ? 'page' : 'false');
-        });
-      }
-
-      const initial = (location.hash || '#home').slice(1);
-      showTab(initial);
-
-      window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
-
-      links.forEach(a => a.addEventListener('click', () => {
-        const name = a.dataset.target;
-        if (!name) return;
-        showTab(name);
-      }));
-    })();
-  </script>
-</body>
-</html>
+          <div class="pt-4">
+            <a href="https://www.duolingo.com/learn" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-bold hover:underline">
+               <img src="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico" class="w-5 h-5" alt="duolingo">
+               Duolingoで勉強中！
+            </a>
